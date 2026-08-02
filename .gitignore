@@ -1,0 +1,23 @@
+.DS_Store
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# 비공개 또는 대용량 데이터
+data/raw/
+data/private/
+**/data/raw/
+**/data/private/
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.bam
+*.bai
+
+# 자동 생성 결과
+**/results/cache/
+**/*_cache/
+**/*_files/
+
