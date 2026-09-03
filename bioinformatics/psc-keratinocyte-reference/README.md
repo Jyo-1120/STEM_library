@@ -94,6 +94,15 @@ GSE147206에서 KRT10은 D6에서도 약 80% 세포에 검출되고 비상피 cl
 
 실제 결과는 `best reference day + compatible range + biological stage + fit score` 형식으로 보고한다. 후기 표본은 예를 들어 `best reference day D24; compatible range D20-D29; maturing keratinocyte`처럼 표현한다.
 
+### 훈련셋과 검증셋 분리
+
+시점당 replicate가 2개뿐이므로 무작위 80:20 분할 대신 complete-time-course 2-fold 검증을 사용한다.
+
+- Fold 1: replicate 1의 6개 시점을 training, replicate 2의 6개 시점을 validation
+- Fold 2: replicate 2의 6개 시점을 training, replicate 1의 6개 시점을 validation
+
+Fold 1의 평균 절대오차는 0.67일, Fold 2는 0.33일이었다. 두 fold 모두 최대 오차는 2일이고 모든 검증 표본이 실제 anchor의 ±2일 이내였다. 외부 데이터셋은 모델 fitting에서 제외하고 세포형 특이성, endpoint 일치, maturation 방향 검증에만 사용한다.
+
 ## qPCR에 적용할 때
 
 RNA-seq log2CPM과 qPCR delta-Ct를 직접 비교하지 않는다. 우리 랩 known-day qPCR 자료가 확보되면 다음 순서로 calibration한다.
@@ -115,7 +124,8 @@ bioinformatics/psc-keratinocyte-reference/
 │   ├── analyze_gse155816_marker_detection.py
 │   ├── analyze_maturation_references.R
 │   ├── build_daily_reference.R
-│   └── validate_daily_reference.R
+│   ├── validate_daily_reference.R
+│   └── define_train_validation_sets.R
 └── results/
     ├── daily_stage_reference.csv
     ├── model_anchors.csv
@@ -124,7 +134,11 @@ bioinformatics/psc-keratinocyte-reference/
     ├── GSE155816_marker_passage_effects.csv
     ├── daily_mapping_validation_predictions.csv
     ├── daily_mapping_validation_metrics.csv
-    └── validation_summary_ko.md
+    ├── validation_summary_ko.md
+    ├── internal_train_validation_split.csv
+    ├── internal_cross_replicate_fold_metrics.csv
+    ├── external_validation_manifest.csv
+    └── train_validation_design_ko.md
 ```
 
 ## 참고자료

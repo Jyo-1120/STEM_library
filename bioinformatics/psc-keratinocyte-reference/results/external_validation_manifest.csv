@@ -1,0 +1,6 @@
+"dataset","modality","biological_material","available_states","validation_role","permitted_claim"
+"GSE147206","scRNA-seq","PSC-derived skin organoid epithelial cells","D6, D29, D48","cell-type specificity and D6/D29 state agreement","broad stage support; not exact calendar-day accuracy"
+"GSE287810","bulk RNA-seq","iPSC-derived keratinocytes","D29-D32 endpoint; CnT30 versus KSFM","late iKC endpoint agreement","D30-like endpoint support; not exact day transfer"
+"GSE155816","scRNA-seq","primary cultured keratinocytes","passage 2 and passage 5","basal-to-differentiation marker direction","maturation direction only"
+"GSE98483","bulk RNA-seq","primary keratinocytes","calcium differentiation D0, D2, D4, D7","primary-KC maturation direction","maturation direction only"
+"GSE73305","bulk RNA-seq","primary keratinocytes","undifferentiated and calcium D1-D5","terminal maturation direction","maturation direction only"
