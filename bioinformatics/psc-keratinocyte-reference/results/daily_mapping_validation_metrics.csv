@@ -1,0 +1,7 @@
+"validation_method","panel","n_samples","mean_absolute_error_days","median_absolute_error_days","within_2_days_fraction","within_4_days_fraction","bootstrap_interval_coverage","mean_best_correlation"
+"cross_replicate_trajectory","core",12,0.5,0,1,1,1,0.946581884015271
+"leave_one_sample_out","core",12,0.583333333333333,0,1,1,1,0.948667649982322
+"leave_one_stage_out","core",8,5.125,4,0.375,0.5,0.5,0.833141868568384
+"cross_replicate_trajectory","expanded",12,1,0,0.833333333333333,0.916666666666667,0.916666666666667,0.906436011635305
+"leave_one_sample_out","expanded",12,0.833333333333333,0,0.916666666666667,1,0.916666666666667,0.912023364911953
+"leave_one_stage_out","expanded",8,6.25,4,0.375,0.5,0.375,0.722364804352618

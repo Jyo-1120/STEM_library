@@ -1,0 +1,65 @@
+"validation_method","panel","training_replicate","sample","actual_stage","actual_day_or_state_anchor","predicted_day","absolute_error_days","bootstrap_median_day","bootstrap_lower_day","bootstrap_upper_day","near_optimal_day_min","near_optimal_day_max","best_rmse","best_correlation","second_best_day","third_best_day","predicted_state","predicted_confidence_class","n_genes"
+"leave_one_sample_out","core",NA,"niPSCs_d0_123","D0",0,0,0,0,0,0,0,0,0.269864826078935,0.977090806216247,1,2,"pluripotent PSC","high",15
+"leave_one_sample_out","core",NA,"niPSCs_d0_124","D0",0,0,0,0,0,1,0,0,0.224186628777678,0.984434456692742,1,2,"pluripotent PSC","high",15
+"leave_one_sample_out","core",NA,"niPSCs_d4_327","D4",4,6,2,6,4,8,5,8,0.157384185074153,0.960000740083355,7,8,"surface ectoderm / epithelial induction","medium-high",15
+"leave_one_sample_out","core",NA,"niPSCs_d4_328","D4",4,4,0,4,3,5,3,8,0.328146559443615,0.854480324173097,5,3,"surface ectoderm / epithelial induction","high",15
+"leave_one_sample_out","core",NA,"niPSCs_d7_332","D7",7,6,1,6,5,9,4,9,0.198582553859948,0.92425968930418,7,5,"surface ectoderm / epithelial induction","medium-high",15
+"leave_one_sample_out","core",NA,"niPSCs_d7_331","D7",7,6,1,6,5,9,4,9,0.191734179652771,0.932675922428703,7,8,"surface ectoderm / epithelial induction","medium-high",15
+"leave_one_sample_out","core",NA,"niPSCs_d15_335","D15",15,15,0,15,15,15,14,19,0.127358348510728,0.966548991180199,16,17,"keratinocyte progenitor","high",15
+"leave_one_sample_out","core",NA,"niPSCs_d15_336","D15",15,17,2,16,13,18,13,21,0.108828953556187,0.977862235183181,16,14,"keratinocyte progenitor","medium-low",15
+"leave_one_sample_out","core",NA,"niPSCs_d30_342","D30",30,30,0,30,25,30,25,30,0.174828996560243,0.953871058213946,29,28,"immature/maturing iKC endpoint","high",15
+"leave_one_sample_out","core",NA,"niPSCs_d30_341","D30",30,29,1,29,27,30,24,30,0.17596696284734,0.957433917956731,28,30,"calcium-responsive maturing keratinocyte","medium-high",15
+"leave_one_sample_out","core",NA,"niPSCs_KRT_280","Primary_KC",35,35,0,35,34,35,35,35,0.477108284891174,0.946747586763516,34,33,"late-maturing keratinocyte-like state","low",15
+"leave_one_sample_out","core",NA,"niPSCs_KRT_279","Primary_KC",35,35,0,35,34,35,34,35,0.406562112989484,0.948606071591973,34,33,"late-maturing keratinocyte-like state","low",15
+"cross_replicate_trajectory","core",1,"niPSCs_d0_124","D0",0,0,0,0,0,1,0,0,0.217725097085964,0.985600270634933,1,2,"pluripotent PSC","high",15
+"cross_replicate_trajectory","core",1,"niPSCs_d4_328","D4",4,4,0,4,3,4,3,8,0.323806486094243,0.858703020856457,5,3,"surface ectoderm / epithelial induction","high",15
+"cross_replicate_trajectory","core",1,"niPSCs_d7_331","D7",7,6,1,6,4,9,4,9,0.186604894909924,0.939473952211156,5,7,"surface ectoderm / epithelial induction","medium-high",15
+"cross_replicate_trajectory","core",1,"niPSCs_d15_336","D15",15,17,2,16,13,18,13,21,0.10549489789593,0.976640447467398,16,14,"keratinocyte progenitor","medium-low",15
+"cross_replicate_trajectory","core",1,"niPSCs_d30_341","D30",30,29,1,29,27,30,24,30,0.174281487617493,0.954029624078604,30,28,"calcium-responsive maturing keratinocyte","medium-high",15
+"cross_replicate_trajectory","core",1,"niPSCs_KRT_279","Primary_KC",35,35,0,35,34,35,34,35,0.404752376959503,0.947117513450911,34,33,"late-maturing keratinocyte-like state","low",15
+"cross_replicate_trajectory","core",2,"niPSCs_d0_123","D0",0,0,0,0,0,0,0,0,0.275494837144242,0.973873724670142,1,2,"pluripotent PSC","high",15
+"cross_replicate_trajectory","core",2,"niPSCs_d4_327","D4",4,6,2,6,4,8,5,8,0.190305840771515,0.944856668199845,7,5,"surface ectoderm / epithelial induction","medium-high",15
+"cross_replicate_trajectory","core",2,"niPSCs_d7_332","D7",7,7,0,7,5,9,5,10,0.227741640348038,0.906948156350911,8,6,"surface ectoderm / epithelial induction","high",15
+"cross_replicate_trajectory","core",2,"niPSCs_d15_335","D15",15,15,0,15,15,15,14,19,0.133895393229244,0.967710561079961,16,17,"keratinocyte progenitor","high",15
+"cross_replicate_trajectory","core",2,"niPSCs_d30_342","D30",30,30,0,30,26,30,25,30,0.182382812140591,0.955558110048671,29,28,"immature/maturing iKC endpoint","high",15
+"cross_replicate_trajectory","core",2,"niPSCs_KRT_280","Primary_KC",35,35,0,35,34,35,35,35,0.477729053218466,0.948470559134264,34,33,"late-maturing keratinocyte-like state","low",15
+"leave_one_stage_out","core",NA,"niPSCs_d4_327","D4",4,7,3,7,7,8,6,8,0.183264054647467,0.96256166783909,8,6,"surface ectoderm / epithelial induction","high",15
+"leave_one_stage_out","core",NA,"niPSCs_d4_328","D4",4,6,2,6,5,7,5,8,0.338276964720539,0.894764189358753,7,8,"surface ectoderm / epithelial induction","medium-high",15
+"leave_one_stage_out","core",NA,"niPSCs_d7_332","D7",7,6,1,6,4,8,4,9,0.212327280030496,0.940891647981789,7,5,"surface ectoderm / epithelial induction","medium-high",15
+"leave_one_stage_out","core",NA,"niPSCs_d7_331","D7",7,6,1,6,4,8,4,9,0.206113990480896,0.933873946876195,7,5,"surface ectoderm / epithelial induction","medium-high",15
+"leave_one_stage_out","core",NA,"niPSCs_d15_335","D15",15,20,5,20,14,24,13,27,0.377426484289451,0.735089530441613,19,21,"basal-like immature keratinocyte","medium-low",15
+"leave_one_stage_out","core",NA,"niPSCs_d15_336","D15",15,20,5,20,15,23,13,26,0.300419560922127,0.826472078409021,19,21,"basal-like immature keratinocyte","medium-low",15
+"leave_one_stage_out","core",NA,"niPSCs_d30_342","D30",30,18,12,18,13,23,14,22,0.497471522343402,0.645159772000786,19,17,"basal-like immature keratinocyte","medium-low",15
+"leave_one_stage_out","core",NA,"niPSCs_d30_341","D30",30,18,12,18,14,22,14,22,0.471148254658611,0.726322115639824,19,17,"basal-like immature keratinocyte","medium-low",15
+"leave_one_sample_out","expanded",NA,"niPSCs_d0_123","D0",0,0,0,0,0,1,0,1,0.342439953778611,0.958206222225512,1,2,"pluripotent PSC","high",19
+"leave_one_sample_out","expanded",NA,"niPSCs_d0_124","D0",0,0,0,0,0,1,0,0,0.342350951701551,0.955872696521178,1,2,"pluripotent PSC","high",19
+"leave_one_sample_out","expanded",NA,"niPSCs_d4_327","D4",4,6,2,6,4,8,4,9,0.227105942537131,0.911460792639222,5,7,"surface ectoderm / epithelial induction","medium-high",19
+"leave_one_sample_out","expanded",NA,"niPSCs_d4_328","D4",4,4,0,4,3,5,3,7,0.320504839928548,0.863655530258407,5,6,"surface ectoderm / epithelial induction","high",19
+"leave_one_sample_out","expanded",NA,"niPSCs_d7_332","D7",7,6,1,6,4,8,4,8,0.236304277327737,0.918692696891472,5,7,"surface ectoderm / epithelial induction","medium-high",19
+"leave_one_sample_out","expanded",NA,"niPSCs_d7_331","D7",7,8,1,7,5,9,5,10,0.237084812122106,0.909980928080122,6,7,"surface ectoderm / epithelial induction","medium",19
+"leave_one_sample_out","expanded",NA,"niPSCs_d15_335","D15",15,15,0,15,15,16,13,20,0.544591558169137,0.864516071340219,16,17,"keratinocyte progenitor","high",19
+"leave_one_sample_out","expanded",NA,"niPSCs_d15_336","D15",15,13,2,14,11,23,11,24,0.295999784156757,0.856092988874062,20,12,"early keratinocyte progenitor","medium-low",19
+"leave_one_sample_out","expanded",NA,"niPSCs_d30_342","D30",30,30,0,30,29,30,26,30,0.325803608516376,0.870256690729282,29,28,"immature/maturing iKC endpoint","high",19
+"leave_one_sample_out","expanded",NA,"niPSCs_d30_341","D30",30,26,4,26,24,29,22,30,0.231948176075829,0.945701672414307,25,27,"calcium-responsive maturing keratinocyte","medium-low",19
+"leave_one_sample_out","expanded",NA,"niPSCs_KRT_280","Primary_KC",35,35,0,35,35,35,35,35,0.487496528489022,0.946509763174803,34,33,"late-maturing keratinocyte-like state","low",19
+"leave_one_sample_out","expanded",NA,"niPSCs_KRT_279","Primary_KC",35,35,0,35,34,35,34,35,0.427725638176479,0.943334325794852,34,33,"late-maturing keratinocyte-like state","low",19
+"cross_replicate_trajectory","expanded",1,"niPSCs_d0_124","D0",0,0,0,0,0,1,0,0,0.301373518481909,0.964174700164733,1,2,"pluripotent PSC","high",19
+"cross_replicate_trajectory","expanded",1,"niPSCs_d4_328","D4",4,4,0,4,3,5,3,7,0.312659183061646,0.860333691829451,5,3,"surface ectoderm / epithelial induction","high",19
+"cross_replicate_trajectory","expanded",1,"niPSCs_d7_331","D7",7,6,1,7,4,9,4,9,0.229518587533767,0.922935103230271,8,7,"surface ectoderm / epithelial induction","medium-high",19
+"cross_replicate_trajectory","expanded",1,"niPSCs_d15_336","D15",15,20,5,18,11,23,11,24,0.277888170663861,0.827066174331301,19,21,"basal-like immature keratinocyte","medium-low",19
+"cross_replicate_trajectory","expanded",1,"niPSCs_d30_341","D30",30,26,4,26,25,29,23,30,0.199524394218866,0.953886917237638,27,25,"calcium-responsive maturing keratinocyte","medium-low",19
+"cross_replicate_trajectory","expanded",1,"niPSCs_KRT_279","Primary_KC",35,35,0,35,34,35,34,35,0.40882945560021,0.946706829040988,34,33,"late-maturing keratinocyte-like state","low",19
+"cross_replicate_trajectory","expanded",2,"niPSCs_d0_123","D0",0,0,0,0,0,1,0,1,0.363976394340835,0.951897351267313,1,2,"pluripotent PSC","high",19
+"cross_replicate_trajectory","expanded",2,"niPSCs_d4_327","D4",4,5,1,5,4,8,4,9,0.246723264866695,0.906615758559784,6,4,"surface ectoderm / epithelial induction","medium",19
+"cross_replicate_trajectory","expanded",2,"niPSCs_d7_332","D7",7,6,1,6,5,8,5,9,0.256765498692198,0.909929041074522,7,8,"surface ectoderm / epithelial induction","medium-high",19
+"cross_replicate_trajectory","expanded",2,"niPSCs_d15_335","D15",15,15,0,15,15,19,13,23,0.541661521427972,0.84984631754067,16,17,"keratinocyte progenitor","high",19
+"cross_replicate_trajectory","expanded",2,"niPSCs_d30_342","D30",30,30,0,30,27,31,25,31,0.380642137763659,0.842169421669375,29,28,"immature/maturing iKC endpoint","high",19
+"cross_replicate_trajectory","expanded",2,"niPSCs_KRT_280","Primary_KC",35,35,0,35,34,35,35,35,0.506468797597845,0.941670833677616,34,33,"late-maturing keratinocyte-like state","low",19
+"leave_one_stage_out","expanded",NA,"niPSCs_d4_327","D4",4,7,3,7,6,9,6,9,0.273213303746721,0.907323026204121,8,6,"surface ectoderm / epithelial induction","high",19
+"leave_one_stage_out","expanded",NA,"niPSCs_d4_328","D4",4,6,2,6,5,7,5,9,0.363203596580983,0.858673565601223,7,8,"surface ectoderm / epithelial induction","medium-high",19
+"leave_one_stage_out","expanded",NA,"niPSCs_d7_332","D7",7,5,2,5,4,7,4,8,0.313826204515873,0.876307618291103,6,4,"surface ectoderm / epithelial induction","medium",19
+"leave_one_stage_out","expanded",NA,"niPSCs_d7_331","D7",7,6,1,6,5,7,4,9,0.319847257060498,0.871322407385199,5,7,"surface ectoderm / epithelial induction","medium-high",19
+"leave_one_stage_out","expanded",NA,"niPSCs_d15_335","D15",15,21,6,22,16,31,10,31,0.841864890618985,0.509919070114005,22,20,"basal-like immature keratinocyte","medium-low",19
+"leave_one_stage_out","expanded",NA,"niPSCs_d15_336","D15",15,20,5,20,5,31,11,29,0.458812465818516,0.619077944717794,21,19,"basal-like immature keratinocyte","medium-low",19
+"leave_one_stage_out","expanded",NA,"niPSCs_d30_342","D30",30,12,18,12,7,22,8,21,0.713438066022037,0.50519511788867,11,13,"early keratinocyte progenitor","medium-low",19
+"leave_one_stage_out","expanded",NA,"niPSCs_d30_341","D30",30,17,13,17,11,21,11,21,0.574975305367587,0.631099684618831,18,16,"keratinocyte progenitor","medium-low",19

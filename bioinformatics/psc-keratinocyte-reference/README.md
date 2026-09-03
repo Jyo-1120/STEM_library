@@ -80,6 +80,20 @@ GSE147206에서 KRT10은 D6에서도 약 80% 세포에 검출되고 비상피 cl
 
 권장 자체 표본은 D0, D5-D7, D14-D15, D21-D23, D28-D30, D35이며 서로 독립적인 분화 3회 이상이 바람직하다.
 
+## 일자별 모델 자체 검증
+
+15-gene core panel을 사용해 GSE120107에서 reference 날짜를 다시 예측했다.
+
+| 검증 방식 | 평균 절대오차 | ±2일 이내 | 의미 |
+|---|---:|---:|---|
+| Cross-replicate trajectory | 0.50일 | 100% | 한 replicate로 만든 기준선이 다른 replicate의 관측 anchor를 잘 구분 |
+| Leave-one-sample-out | 0.58일 | 100% | 같은 시점의 다른 replicate가 있을 때 안정적 |
+| Leave-one-stage-out | 5.13일 | 37.5% | 시점 전체가 없으면 일별 보간 정확도가 크게 감소 |
+
+시점 전체를 숨겼을 때 D4는 D6-D7, D7은 D6, D15는 D20, D30은 D18로 예측됐다. 따라서 현재 모델은 관측 anchor와 가까운 상태를 찾는 데는 유용하지만, D15-D30 사이의 모든 날짜를 정확한 달력 날짜처럼 해석하면 안 된다.
+
+실제 결과는 `best reference day + compatible range + biological stage + fit score` 형식으로 보고한다. 후기 표본은 예를 들어 `best reference day D24; compatible range D20-D29; maturing keratinocyte`처럼 표현한다.
+
 ## qPCR에 적용할 때
 
 RNA-seq log2CPM과 qPCR delta-Ct를 직접 비교하지 않는다. 우리 랩 known-day qPCR 자료가 확보되면 다음 순서로 calibration한다.
@@ -100,13 +114,17 @@ bioinformatics/psc-keratinocyte-reference/
 │   ├── analyze_gse147206_scRNA.R
 │   ├── analyze_gse155816_marker_detection.py
 │   ├── analyze_maturation_references.R
-│   └── build_daily_reference.R
+│   ├── build_daily_reference.R
+│   └── validate_daily_reference.R
 └── results/
     ├── daily_stage_reference.csv
     ├── model_anchors.csv
     ├── GSE120107_qpcr_candidate_summary.csv
     ├── GSE147206_qpcr_candidate_epithelial_specificity.csv
-    └── GSE155816_marker_passage_effects.csv
+    ├── GSE155816_marker_passage_effects.csv
+    ├── daily_mapping_validation_predictions.csv
+    ├── daily_mapping_validation_metrics.csv
+    └── validation_summary_ko.md
 ```
 
 ## 참고자료
