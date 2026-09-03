@@ -2,7 +2,7 @@
 
 공개 bulk/scRNA-seq 자료와 2D RA/BMP4-EGF-CaCl2 분화 프로토콜을 이용해, 향후 우리 랩 qPCR 표본을 분화 단계와 예상 일자에 매핑하기 위한 reference를 구축한다.
 
-현재 버전은 **실측 공개 시점 사이를 연결한 모델 reference**이다. D0-D35의 모든 날짜가 직접 측정되었다는 뜻은 아니다.
+현재 버전은 **PSC 유래 실측 공개 시점 사이를 연결한 모델 reference**이다. primary keratinocyte는 날짜 모델에서 제외하며, D0-D35의 모든 날짜가 직접 측정되었다는 뜻은 아니다.
 
 ## 목표
 
@@ -28,13 +28,15 @@
 | D15-D22 | progenitor expansion / basal commitment | N2 + EGF |
 | D23-D29 | calcium-responsive maturation | 1.2 mM CaCl2 |
 | D30 | mature iKC checkpoint | mature marker 확인 |
-| D31-D35 | late maintenance / maturation 방향 | 날짜 신뢰도 낮음 |
+| D31-D35 | post-D30 maintenance | 공개 PSC anchor 없음; D30 carry-forward |
 
 ## 사용한 공개자료
 
 | 데이터 | 역할 | 핵심 제한 |
 |---|---|---|
 | GSE120107 | D0, D4, D7, D15, D30 bulk time-course backbone | 각 시점 2반복, D15-D30 간격이 큼 |
+| GSE122383 | hESC D0, D7, D14, D21, D45 독립 RNA-seq 시계열 검증 | 후기 분화 속도가 프로토콜 의존적 |
+| GSE144241 | hESC D0, D1, D4, D6, D8, D11, D26 microarray | 시점당 1표본; 초기 전환 보조만 가능 |
 | GSE147206 | D6, D29, D48 scRNA-seq 세포형 특이성 | 3D organoid, mixed lineage, D48 한 cell line |
 | GSE155816 | primary keratinocyte basal-to-differentiation 보완 | PSC 분화 날짜가 아니라 passage 변화 |
 | GSE287810 | D29-D32 iPSC-derived KC endpoint/배지 비교 | endpoint 중심 |
@@ -45,9 +47,9 @@
 
 ## D0-D35 일자별 모델
 
-GSE120107의 D0, D4, D7, D15, D30 평균 발현을 관측 anchor로 사용하고, 그 사이를 유전자별·module별 piecewise-linear interpolation으로 연결했다.
+GSE120107의 PSC 유래 D0, D4, D7, D15, D30 평균 발현만 관측 anchor로 사용하고, 그 사이를 유전자별·module별 piecewise-linear interpolation으로 연결했다. 같은 자료의 primary keratinocyte 두 표본은 제외했다.
 
-D35에는 같은 자료의 primary keratinocyte를 **상태 anchor**로 배치했다. 이것은 실제 Day 35 측정값이 아니다. D31-D35는 primary-KC-like 방향을 나타내지만 달력 날짜 신뢰도는 낮다.
+D31-D35에는 공개 PSC 실측 anchor가 없으므로 D30 값을 그대로 유지한다. 이 구간은 `unanchored`이며 날짜 예측에 사용하지 않는다.
 
 ### 근거 수준
 
@@ -55,15 +57,16 @@ D35에는 같은 자료의 primary keratinocyte를 **상태 anchor**로 배치�
 - Medium-high: D6, D29 cross-protocol scRNA 지원
 - Medium: D5, D8, D14, D23 프로토콜 전환점
 - Medium-low: 실측 anchor 사이의 일반 보간일
-- Low: D31-D35 후기 상태 보간
+- Low/unanchored: D31-D35 D30 carry-forward
 
 ## marker panel 초안
 
 - pluripotency: `POU5F1`, `NANOG`
 - surface ectoderm/progenitor: `TFAP2A`, `KRT18`, `KRT19`, `TP63`
 - basal/epidermal commitment: `KRT5`, `KRT14`, `ITGA6`
-- maturation: `KRT1`, `IVL`, `SPRR1B`, `FLG`, `LOR`
-- 보조: `DSG1`, `TGM1`, `ABCA12`, `KRT10`
+- maturation: `KRT1`, `IVL`, `SPRR1B`, `ABCA12`, `DSG1`, `TGM1`
+- terminal maturation QC only: `FLG`, `LOR`
+- 보조: `KRT10`
 - off-target 감시: `COL1A1`, `PAX6`
 
 GSE147206에서 KRT10은 D6에서도 약 80% 세포에 검출되고 비상피 cluster에도 넓게 나타나 ambient RNA 가능성이 컸다. 따라서 KRT10 단독으로 단계나 세포형을 판정하지 않는다.
@@ -73,6 +76,8 @@ GSE147206에서 KRT10은 D6에서도 약 80% 세포에 검출되고 비상피 cl
 ## 데이터 충분성 판단
 
 - processed matrix만으로 marker 방향성, 세포형 특이성, 데이터 공백 평가는 가능했다.
+- GSE122383 processed FPKM는 2.4 MB이며, raw FASTQ는 전체 약 150 GB이다.
+- GSE144241 processed matrix는 1.6 MB, raw CEL archive는 26 MB이다.
 - GSE147206은 QC 후 44,448세포여서 세포 수는 충분했다.
 - 그러나 세포 수가 곧 biological replicate 수는 아니다.
 - D6 epithelial 비율은 WA25 56.8%, DSP 87.4%로 cell-line 차이가 컸다.
@@ -80,28 +85,15 @@ GSE147206에서 KRT10은 D6에서도 약 80% 세포에 검출되고 비상피 cl
 
 권장 자체 표본은 D0, D5-D7, D14-D15, D21-D23, D28-D30, D35이며 서로 독립적인 분화 3회 이상이 바람직하다.
 
-## 일자별 모델 자체 검증
+## 훈련·검증 구조
 
-15-gene core panel을 사용해 GSE120107에서 reference 날짜를 다시 예측했다.
+- 주 훈련: GSE120107 PSC D0/D4/D7/D15/D30, 10표본
+- 내부 검증: replicate trajectory 2-fold, 평균 절대오차 1.1일, 전 표본 ±2일 이내
+- 독립 PSC 검증: GSE122383 H9 D0/D7/D14/D21/D45, 10표본
+- GSE122383 내부 replicate 검증: 평균 절대오차 3일, 90%가 ±4일 이내
+- 초기 시점 보조: GSE144241 D0/D1/D4/D6/D8/D11/D26
 
-| 검증 방식 | 평균 절대오차 | ±2일 이내 | 의미 |
-|---|---:|---:|---|
-| Cross-replicate trajectory | 0.50일 | 100% | 한 replicate로 만든 기준선이 다른 replicate의 관측 anchor를 잘 구분 |
-| Leave-one-sample-out | 0.58일 | 100% | 같은 시점의 다른 replicate가 있을 때 안정적 |
-| Leave-one-stage-out | 5.13일 | 37.5% | 시점 전체가 없으면 일별 보간 정확도가 크게 감소 |
-
-시점 전체를 숨겼을 때 D4는 D6-D7, D7은 D6, D15는 D20, D30은 D18로 예측됐다. 따라서 현재 모델은 관측 anchor와 가까운 상태를 찾는 데는 유용하지만, D15-D30 사이의 모든 날짜를 정확한 달력 날짜처럼 해석하면 안 된다.
-
-실제 결과는 `best reference day + compatible range + biological stage + fit score` 형식으로 보고한다. 후기 표본은 예를 들어 `best reference day D24; compatible range D20-D29; maturing keratinocyte`처럼 표현한다.
-
-### 훈련셋과 검증셋 분리
-
-시점당 replicate가 2개뿐이므로 무작위 80:20 분할 대신 complete-time-course 2-fold 검증을 사용한다.
-
-- Fold 1: replicate 1의 6개 시점을 training, replicate 2의 6개 시점을 validation
-- Fold 2: replicate 2의 6개 시점을 training, replicate 1의 6개 시점을 validation
-
-Fold 1의 평균 절대오차는 0.67일, Fold 2는 0.33일이었다. 두 fold 모두 최대 오차는 2일이고 모든 검증 표본이 실제 anchor의 ±2일 이내였다. 외부 데이터셋은 모델 fitting에서 제외하고 세포형 특이성, endpoint 일치, maturation 방향 검증에만 사용한다.
+GSE120107과 GSE122383에서 비교 가능한 core marker 14개는 모두 시간에 따른 증가/감소 방향이 일치했다. 다만 D45 한 표본이 D31로 예측되어 후기 날짜는 프로토콜 간 직접 이전하지 않는다.
 
 ## qPCR에 적용할 때
 
@@ -120,6 +112,8 @@ bioinformatics/psc-keratinocyte-reference/
 ├── README.md
 ├── scripts/
 │   ├── analyze_gse120107.R
+│   ├── analyze_gse122383.R
+│   ├── analyze_gse144241.R
 │   ├── analyze_gse147206_scRNA.R
 │   ├── analyze_gse155816_marker_detection.py
 │   ├── analyze_maturation_references.R
@@ -130,21 +124,20 @@ bioinformatics/psc-keratinocyte-reference/
     ├── daily_stage_reference.csv
     ├── model_anchors.csv
     ├── GSE120107_qpcr_candidate_summary.csv
+    ├── GSE122383_internal_cross_replicate_metrics.csv
+    ├── GSE122383_cross_study_core_gene_direction.csv
+    ├── GSE144241_core_gene_trends.csv
+    ├── psc_only_dataset_accessibility_ko.md
     ├── GSE147206_qpcr_candidate_epithelial_specificity.csv
-    ├── GSE155816_marker_passage_effects.csv
-    ├── daily_mapping_validation_predictions.csv
-    ├── daily_mapping_validation_metrics.csv
-    ├── validation_summary_ko.md
-    ├── internal_train_validation_split.csv
-    ├── internal_cross_replicate_fold_metrics.csv
-    ├── external_validation_manifest.csv
-    └── train_validation_design_ko.md
+    └── GSE155816_marker_passage_effects.csv
 ```
 
 ## 참고자료
 
 - Ali and Abdelalim, Directed differentiation of human pluripotent stem cells into epidermal keratinocyte-like cells, STAR Protocols (2022), https://doi.org/10.1016/j.xpro.2022.101613
 - GSE120107: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120107
+- GSE122383: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122383
+- GSE144241: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144241
 - GSE147206: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147206
 - GSE155816: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE155816
 - GSE287810: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE287810

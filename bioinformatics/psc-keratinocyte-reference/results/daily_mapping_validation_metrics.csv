@@ -1,7 +1,7 @@
 "validation_method","panel","n_samples","mean_absolute_error_days","median_absolute_error_days","within_2_days_fraction","within_4_days_fraction","bootstrap_interval_coverage","mean_best_correlation"
-"cross_replicate_trajectory","core",12,0.5,0,1,1,1,0.946581884015271
-"leave_one_sample_out","core",12,0.583333333333333,0,1,1,1,0.948667649982322
-"leave_one_stage_out","core",8,5.125,4,0.375,0.5,0.5,0.833141868568384
-"cross_replicate_trajectory","expanded",12,1,0,0.833333333333333,0.916666666666667,0.916666666666667,0.906436011635305
-"leave_one_sample_out","expanded",12,0.833333333333333,0,0.916666666666667,1,0.916666666666667,0.912023364911953
-"leave_one_stage_out","expanded",8,6.25,4,0.375,0.5,0.375,0.722364804352618
+"cross_replicate_trajectory","core",10,1.1,1.5,1,1,1,0.891928322121543
+"leave_one_sample_out","core",10,1.1,1.5,1,1,0.9,0.890019477202411
+"leave_one_stage_out","core",8,5.5,3,0.375,0.75,0.5,0.72828084048685
+"cross_replicate_trajectory","expanded",10,0.9,1,0.9,1,0.9,0.88273444666374
+"leave_one_sample_out","expanded",10,1.1,1,0.9,1,0.9,0.882740371568918
+"leave_one_stage_out","expanded",8,5.75,3,0.25,0.75,0.5,0.682753608533906

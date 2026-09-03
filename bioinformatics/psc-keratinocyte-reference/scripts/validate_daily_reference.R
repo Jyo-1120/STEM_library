@@ -16,19 +16,20 @@ expr <- read.delim(
   row.names = 1
 )
 meta <- read.csv(file.path(gse_dir, "sample_qc.csv"), stringsAsFactors = FALSE)
+meta <- subset(meta, stage != "Primary_KC")
 stage_reference <- read.csv(file.path(daily_dir, "daily_stage_reference.csv"),
                             stringsAsFactors = FALSE)
 
-anchor_stage <- c("D0", "D4", "D7", "D15", "D30", "Primary_KC")
-anchor_day <- c(D0 = 0, D4 = 4, D7 = 7, D15 = 15, D30 = 30, Primary_KC = 35)
+anchor_stage <- c("D0", "D4", "D7", "D15", "D30")
+anchor_day <- c(D0 = 0, D4 = 4, D7 = 7, D15 = 15, D30 = 30)
 meta$target_day <- unname(anchor_day[meta$stage])
 
 core_genes <- c(
   "POU5F1", "NANOG", "TFAP2A", "KRT18", "KRT19",
   "TP63", "KRT5", "KRT14", "ITGA6",
-  "KRT1", "IVL", "SPRR1B", "FLG", "LOR", "ABCA12"
+  "KRT1", "IVL", "SPRR1B", "ABCA12", "DSG1", "TGM1"
 )
-expanded_genes <- c(core_genes, "DSG1", "TGM1", "COL1A1", "PAX6")
+expanded_genes <- c(core_genes, "COL1A1", "PAX6")
 panels <- list(core = core_genes, expanded = expanded_genes)
 
 build_template <- function(train_samples, genes, stages = anchor_stage) {
@@ -46,11 +47,11 @@ build_template <- function(train_samples, genes, stages = anchor_stage) {
   scale_mean <- scale_mean[valid]
   scale_sd <- scale_sd[valid]
   daily <- t(apply(anchors, 1, function(values) {
-    approx(unname(anchor_day[stages]), values, xout = 0:35,
+    approx(unname(anchor_day[stages]), values, xout = 0:30,
            method = "linear", rule = 2)$y
   }))
   daily_z <- sweep(sweep(daily, 1, scale_mean, "-"), 1, scale_sd, "/")
-  colnames(daily_z) <- paste0("D", 0:35)
+  colnames(daily_z) <- paste0("D", 0:30)
   list(genes = rownames(anchors), mean = scale_mean, sd = scale_sd,
        daily_z = daily_z)
 }
@@ -199,11 +200,11 @@ p <- ggplot(plot_data, aes(actual_day_or_state_anchor, predicted_day,
   geom_point(size = 3) +
   facet_wrap(~method_label, nrow = 1) +
   scale_x_continuous(breaks = unname(anchor_day)) +
-  scale_y_continuous(breaks = seq(0, 35, 5), limits = c(0, 35)) +
+  scale_y_continuous(breaks = seq(0, 30, 5), limits = c(0, 30)) +
   labs(
     title = "Daily reference self-validation",
-    subtitle = "Core qPCR panel; D35 denotes a primary-keratinocyte state anchor",
-    x = "Known public-data day/state anchor",
+    subtitle = "Core qPCR panel; training and validation use PSC-derived samples only",
+    x = "Known PSC differentiation day",
     y = "Predicted reference day",
     color = "Known stage"
   ) +

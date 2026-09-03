@@ -14,12 +14,9 @@ stage_expr <- read.delim(
 )
 module_sample <- read.csv(file.path(input_dir, "module_scores.csv"))
 
-anchor_stage <- c("D0", "D4", "D7", "D15", "D30", "Primary_KC")
-anchor_day <- c(0, 4, 7, 15, 30, 35)
-anchor_kind <- c(
-  "observed_bulk", "observed_bulk", "observed_bulk",
-  "observed_bulk", "observed_bulk", "primary_KC_state_anchor"
-)
+anchor_stage <- c("D0", "D4", "D7", "D15", "D30")
+anchor_day <- c(0, 4, 7, 15, 30)
+anchor_kind <- rep("observed_PSC_derived_bulk", length(anchor_stage))
 
 genes <- c(
   "POU5F1", "NANOG", "TFAP2A", "KRT18", "KRT19",
@@ -44,7 +41,7 @@ protocol_phase <- function(day) {
   if (day == 23) return("CaCl2 maturation start")
   if (day <= 29) return("CaCl2 keratinocyte maturation")
   if (day == 30) return("mature iKC checkpoint")
-  "late iKC maintenance / primary-KC-state interpolation"
+  "post-D30 PSC-derived iKC maintenance; no public anchor"
 }
 
 biological_state <- function(day) {
@@ -56,14 +53,13 @@ biological_state <- function(day) {
   if (day <= 22) return("basal-like immature keratinocyte")
   if (day <= 29) return("calcium-responsive maturing keratinocyte")
   if (day == 30) return("immature/maturing iKC endpoint")
-  "late-maturing keratinocyte-like state"
+  "post-D30 PSC-derived keratinocyte-like state; unanchored"
 }
 
 evidence_class <- function(day) {
   if (day %in% c(0, 4, 7, 15, 30)) return("observed bulk anchor")
   if (day %in% c(6, 29)) return("interpolated; cross-protocol scRNA support")
-  if (day == 35) return("primary KC state anchor; not an observed Day 35")
-  if (day > 30) return("late endpoint interpolation")
+  if (day > 30) return("unanchored post-D30 carry-forward")
   if (day %in% c(5, 8, 14, 23)) return("protocol event; expression interpolated")
   "piecewise-linear interpolation"
 }
@@ -96,7 +92,8 @@ stage_daily$protocol_event[stage_daily$day == 14] <- "Progenitor qPCR/IF checkpo
 stage_daily$protocol_event[stage_daily$day == 15] <- "Remove ROCK inhibitor"
 stage_daily$protocol_event[stage_daily$day == 23] <- "Add 1.2 mM CaCl2"
 stage_daily$protocol_event[stage_daily$day == 30] <- "Mature-marker checkpoint"
-stage_daily$protocol_event[stage_daily$day == 35] <- "Maintenance; model endpoint only"
+stage_daily$protocol_event[stage_daily$day == 35] <-
+  "Maintenance; no public PSC-derived Day-35 expression anchor"
 
 write.csv(stage_daily, file.path(out_dir, "daily_stage_reference.csv"), row.names = FALSE)
 
@@ -125,7 +122,7 @@ gene_rows <- lapply(genes, function(gene) {
     relative_to_gene_range = relative,
     expected_level = as.character(level),
     is_observed_bulk_anchor = days %in% c(0, 4, 7, 15, 30),
-    is_primary_KC_state_anchor = days == 35,
+    is_post_D30_unanchored = days > 30,
     stringsAsFactors = FALSE
   )
 })
@@ -151,7 +148,7 @@ module_rows <- lapply(unique(module_mean$module), function(module_name) {
     module = module_name,
     expected_module_score = predicted,
     is_observed_bulk_anchor = days %in% c(0, 4, 7, 15, 30),
-    is_primary_KC_state_anchor = days == 35,
+    is_post_D30_unanchored = days > 30,
     stringsAsFactors = FALSE
   )
 })
@@ -171,7 +168,7 @@ p_module <- ggplot(module_daily, aes(day, expected_module_score, color = module)
   scale_x_continuous(breaks = seq(0, 35, 5)) +
   labs(
     title = "D0-D35 daily module reference",
-    subtitle = "Points: observed GSE120107 bulk anchors; D35: primary-KC state anchor",
+    subtitle = "Points: observed PSC-derived GSE120107 anchors; D31-D35: D30 carry-forward",
     x = "Protocol day", y = "Expected module score", color = "Module"
   ) +
   theme_bw(base_size = 11) +
@@ -209,8 +206,7 @@ anchor_table <- data.frame(
     "early ectoderm induction",
     "surface ectoderm / epithelial induction",
     "keratinocyte progenitor transition",
-    "immature/maturing iKC endpoint",
-    "primary keratinocyte-like state; not a measured protocol day"
+    "immature/maturing PSC-derived iKC endpoint"
   )
 )
 write.csv(anchor_table, file.path(out_dir, "model_anchors.csv"), row.names = FALSE)

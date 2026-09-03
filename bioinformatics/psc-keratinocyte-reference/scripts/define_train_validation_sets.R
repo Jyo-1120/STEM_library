@@ -8,12 +8,13 @@ validation_dir <- file.path(
 dir.create(validation_dir, recursive = TRUE, showWarnings = FALSE)
 
 meta <- read.csv(file.path(gse_dir, "sample_qc.csv"), stringsAsFactors = FALSE)
+meta <- subset(meta, stage != "Primary_KC")
 pred <- read.csv(
   file.path(validation_dir, "daily_mapping_validation_predictions.csv"),
   stringsAsFactors = FALSE
 )
 
-anchor_day <- c(D0 = 0, D4 = 4, D7 = 7, D15 = 15, D30 = 30, Primary_KC = 35)
+anchor_day <- c(D0 = 0, D4 = 4, D7 = 7, D15 = 15, D30 = 30)
 meta$target_day_or_state_anchor <- unname(anchor_day[meta$stage])
 
 # Each fold trains on a complete time course from one replicate and validates
@@ -56,7 +57,7 @@ fold_metrics <- do.call(rbind, lapply(split(cv, cv$fold), function(d) {
     fold = unique(d$fold),
     training_replicate = unique(d$training_replicate),
     validation_replicate = ifelse(unique(d$training_replicate) == 1, 2, 1),
-    training_samples = 6,
+    training_samples = 5,
     validation_samples = nrow(d),
     mean_absolute_error_days = mean(d$absolute_error_days),
     median_absolute_error_days = median(d$absolute_error_days),
@@ -77,16 +78,34 @@ write.csv(
 )
 
 external <- data.frame(
-  dataset = c("GSE147206", "GSE287810", "GSE155816", "GSE98483", "GSE73305"),
-  modality = c("scRNA-seq", "bulk RNA-seq", "scRNA-seq", "bulk RNA-seq", "bulk RNA-seq"),
+  dataset = c(
+    "GSE122383", "GSE144241", "GSE147206", "GSE287810",
+    "GSE155816", "GSE98483", "GSE73305"
+  ),
+  modality = c(
+    "bulk RNA-seq", "microarray", "scRNA-seq", "bulk RNA-seq",
+    "scRNA-seq", "bulk RNA-seq", "bulk RNA-seq"
+  ),
   biological_material = c(
+    "hESC H9-derived epidermal lineage",
+    "hESC H1-derived keratinocyte lineage",
     "PSC-derived skin organoid epithelial cells",
     "iPSC-derived keratinocytes",
     "primary cultured keratinocytes",
     "primary keratinocytes",
     "primary keratinocytes"
   ),
+  psc_derived = c("yes", "yes", "yes", "yes", "no", "no", "no"),
+  eligible_for_calendar_day_model = c(
+    "independent longitudinal validation",
+    "early timing support only; no replicates",
+    "cross-protocol validation only",
+    "late-endpoint validation only",
+    "no", "no", "no"
+  ),
   available_states = c(
+    "D0, D7, D14, D21, D45; two replicates each",
+    "D0, D1, D4, D6, D8, D11, D26; one sample each",
     "D6, D29, D48",
     "D29-D32 endpoint; CnT30 versus KSFM",
     "passage 2 and passage 5",
@@ -94,13 +113,17 @@ external <- data.frame(
     "undifferentiated and calcium D1-D5"
   ),
   validation_role = c(
+    "independent PSC-derived longitudinal validation",
+    "early marker-transition timing support",
     "cell-type specificity and D6/D29 state agreement",
     "late iKC endpoint agreement",
-    "basal-to-differentiation marker direction",
-    "primary-KC maturation direction",
-    "terminal maturation direction"
+    "biological marker reference only",
+    "biological marker reference only",
+    "biological marker reference only"
   ),
   permitted_claim = c(
+    "trajectory and broad calendar agreement; protocol-specific speed remains",
+    "supporting direction only; no error estimate",
     "broad stage support; not exact calendar-day accuracy",
     "D30-like endpoint support; not exact day transfer",
     "maturation direction only",

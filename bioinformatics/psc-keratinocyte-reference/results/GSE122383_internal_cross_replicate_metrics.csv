@@ -1,0 +1,2 @@
+"n_validation_samples","mean_absolute_error_days","median_absolute_error_days","within_2_days_fraction","within_4_days_fraction","maximum_absolute_error_days","n_core_genes_available","n_core_genes_used_min","n_core_genes_used_max"
+10,3,2.5,0.5,0.9,14,14,12,14
