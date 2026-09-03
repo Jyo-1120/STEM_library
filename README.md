@@ -6,6 +6,7 @@
 
 - [Bioinformatics](bioinformatics/README.md)
   - [Bulk RNA-seq와 차등발현 분석](bioinformatics/rna-seq/README.md)
+  - [PSC-to-keratinocyte D0-D35 reference](bioinformatics/psc-keratinocyte-reference/README.md)
 
 ## 작성 원칙
 
@@ -14,4 +15,3 @@
 3. 원문을 그대로 옮기기보다 이해한 내용을 자신의 문장으로 작성합니다.
 4. 인용하거나 참고한 자료는 본문과 문서 하단에 명확히 표시합니다.
 5. 공개할 수 없는 데이터와 대용량 원시 데이터는 저장소에 올리지 않습니다.
-

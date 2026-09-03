@@ -1,0 +1,7 @@
+"model_day","source_stage","anchor_kind","interpretation"
+0,"D0","observed_bulk","PSC baseline"
+4,"D4","observed_bulk","early ectoderm induction"
+7,"D7","observed_bulk","surface ectoderm / epithelial induction"
+15,"D15","observed_bulk","keratinocyte progenitor transition"
+30,"D30","observed_bulk","immature/maturing iKC endpoint"
+35,"Primary_KC","primary_KC_state_anchor","primary keratinocyte-like state; not a measured protocol day"
